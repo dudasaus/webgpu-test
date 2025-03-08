@@ -25,30 +25,57 @@ async function main() {
   });
 
   const vertices = new Float32Array([
+    // Triangle 1: Top-left, bottom-left, top-right
+    -1.0,
+    1.0,
     0.0,
-    0.6,
-    0,
-    1,
-    1,
-    0,
-    0,
-    1,
-    -0.5,
-    -0.6,
-    0,
-    1,
-    0,
-    1,
-    0,
-    1,
-    0.5,
-    -0.6,
-    0,
-    1,
-    0,
-    0,
-    1,
-    1,
+    1.0,
+    1.0,
+    0.0,
+    0.0,
+    1.0, // Top-left
+    -1.0,
+    -1.0,
+    0.0,
+    1.0,
+    0.0,
+    1.0,
+    0.0,
+    1.0, // Bottom-left
+    1.0,
+    1.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0, // Top-right
+
+    // Triangle 2: Bottom-left, bottom-right, top-right
+    -1.0,
+    -1.0,
+    0.0,
+    1.0,
+    0.0,
+    1.0,
+    0.0,
+    1.0, // Bottom-left
+    1.0,
+    -1.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0, // Bottom-right
+    1.0,
+    1.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0, // Top-right
   ]);
 
   const vertexBuffer = device.createBuffer({
@@ -116,7 +143,7 @@ async function main() {
   const passEncoder = commandEncoder.beginRenderPass(renderPassDescriptor);
   passEncoder.setPipeline(renderPipeline);
   passEncoder.setVertexBuffer(0, vertexBuffer);
-  passEncoder.draw(3);
+  passEncoder.draw(6);
   passEncoder.end();
 
   device.queue.submit([commandEncoder.finish()]);
