@@ -79,22 +79,6 @@ async function main() {
     GPUBufferUsage.VERTEX,
   );
 
-  const response = await fetch(texture1.src);
-  const blob = await response.blob();
-  const imgBitmap = await createImageBitmap(blob);
-  const textureDescriptor = {
-    size: { width: imgBitmap.width, height: imgBitmap.height },
-    format: "rgba8unorm",
-    usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST |
-      GPUTextureUsage.RENDER_ATTACHMENT,
-  };
-  const texture = device.createTexture(textureDescriptor);
-
-  device.queue.copyExternalImageToTexture(
-    { source: imgBitmap },
-    { texture },
-    textureDescriptor.size,
-  );
   // Texture sampler.
   const sampler = device.createSampler({
     addressModeU: "repeat",
@@ -193,6 +177,23 @@ async function main() {
       },
     ],
   });
+
+  const response = await fetch(texture1.src);
+  const blob = await response.blob();
+  const imgBitmap = await createImageBitmap(blob);
+  const textureDescriptor = {
+    size: { width: imgBitmap.width, height: imgBitmap.height },
+    format: "rgba8unorm",
+    usage: GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST |
+      GPUTextureUsage.RENDER_ATTACHMENT,
+  };
+  const texture = device.createTexture(textureDescriptor);
+
+  device.queue.copyExternalImageToTexture(
+    { source: imgBitmap },
+    { texture },
+    textureDescriptor.size,
+  );
 
   const uniformBindGroup = device.createBindGroup({
     layout: uniformBindGroupLayout,
