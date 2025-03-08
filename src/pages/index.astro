@@ -1,7 +1,17 @@
 ---
+import WebGpuCanvas from "../components/WebGpuCanvas/WebGpuCanvas.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
 	<h1>WebGPU</h1>
+	<WebGpuCanvas />
 </Layout>
+
+<style lang="scss">
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+</style>
